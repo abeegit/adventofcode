@@ -999,8 +999,7 @@ var input string = `20x3x11
 10x1x18
 29x4x8
 21x2x22
-14x12x8
-`
+14x12x8`
 
 func main() {
 	First()
