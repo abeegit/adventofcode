@@ -2,25 +2,40 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
-func second() {
-	var level int = 0
-	var basementReached bool = false
+func getLengthForRibbon(dimensionString string) (int, error) {
+	dimensions, error := GetDimensions(dimensionString)
+	if error != nil {
+		return 0, error
+	}	
 
-	for i := range input {
-		step := input[i]	
-		switch step {
-			case '(':
-				level++
-			case ')':
-				level--
-		}
+	length := dimensions[0]
+	width := dimensions[1]
+	height := dimensions[2]
 
-		if (!basementReached && level == -1) {
-			basementReached = true
-			fmt.Printf("Basement was reached at the character %d", i+1)
+	sortedDimensions := Sort([]int{length, width, height})
+
+	smallestPerimeter := 2*(sortedDimensions[0] + sortedDimensions[1])
+	volumeOfBox := length * width * height
+
+	return smallestPerimeter + volumeOfBox, error
+}
+
+func Second() {
+	dimensionsSlice := strings.Split(input, "\n")
+
+	total := 0
+	for _, dimensionString := range dimensionsSlice {
+		length, err := getLengthForRibbon(dimensionString)
+		if err != nil {
+			fmt.Println(err)
 			break
 		}
+	
+		total = total + length
 	}
+
+	fmt.Println("Total length of ribbon required: ", total)
 }

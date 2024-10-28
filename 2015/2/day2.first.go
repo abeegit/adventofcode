@@ -1,37 +1,21 @@
 package main
 
 import (
-	"errors"
 	"fmt"
-	"strconv"
 	"strings"
 )
 
-func sort(dimensions []int) []int {
-	for i := 0; i < 2; i++ {
-		for j := i+1; j <= 2; j++ {
-			if (dimensions[i] > dimensions[j]) {
-				temp := dimensions[i]
-				dimensions[i] = dimensions[j]
-				dimensions[j] = temp
-			}
-		}
-	}
-
-	return dimensions
-}
-
 func getAreaForDimensions(dimensionString string) (int, error) {
-	s := strings.Split(dimensionString, "x")
-	if len(s) != 3 {
-		return 0, errors.New("dimension string has invalid characters")
-	}
+  dimensions, error := GetDimensions(dimensionString)
+	if error != nil {
+		return 0, error
+	}	
 
-	length, _ := strconv.Atoi(s[0])
-	width, _ := strconv.Atoi(s[1])
-	height, _ := strconv.Atoi(s[2])
+	length := dimensions[0]
+	width := dimensions[1]
+	height := dimensions[2]
 
-	sortedDimensions := sort([]int{length, width, height})
+	sortedDimensions := Sort([]int{length, width, height})
 
 	areaOfSmallestSide := sortedDimensions[0] * sortedDimensions[1] 
 	surfaceArea := 2*length*width + 2*width*height + 2*length*height
