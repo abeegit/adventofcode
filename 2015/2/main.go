@@ -1002,6 +1002,6 @@ var input string = `20x3x11
 14x12x8`
 
 func main() {
-	// First()
+	First()
 	Second()
 }
