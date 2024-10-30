@@ -4,5 +4,5 @@ var input string = `^^<<v<<v><v^^<><>^^<v<v^>>^^^><^>v^>v><><><<vv^^<^>^^<v^>v>v
 
 func main() {
 	First()
-	// Second()
+	Second()
 }
